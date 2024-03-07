@@ -1,5 +1,7 @@
 package io.javabrains.reactiveworkshop;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Exercise1 {
@@ -60,6 +62,29 @@ public class Exercise1 {
                 .filter(user -> StreamSources.intNumbersStream().anyMatch(i -> i == user.getId()))
                 .map(user -> user.getFirstName())
                 .forEach(System.out::println);
+
+        System.out.println("------------------------------");
+        // Find the sum of even numbers using Java stream
+        // TODO: Write code here
+        int sum = StreamSources.intNumbersStream()
+                .filter(it -> it % 2 == 0)
+                .mapToInt(Integer::intValue)
+                .sum();
+        System.out.println(sum);
+
+        System.out.println("------------------------------");
+        //  From a list of string , Sort the strings based ton length assending order
+        // TODO: Write code here
+        StreamSources.userStream()
+                .map(it -> it.getLastName())
+                .sorted((o1, o2) -> o1.length() - o2.length())
+                .forEach(System.out::println);
+        // same without stream
+
+        List<String> list = StreamSources.userStream()
+                .map(it -> it.getLastName())
+                .collect(Collectors.toList());
+        list.sort((o1, o2) -> o1.length() - o2.length());
 
     }
 
